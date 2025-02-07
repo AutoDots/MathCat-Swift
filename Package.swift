@@ -1,11 +1,11 @@
-// swift-tools-version: 5.5
+// swift-tools-version: 6.0
 
 import PackageDescription
 
 let package = Package(
     name: "MathCat",
     products: [
-        .executable(
+        .library(
             name: "MathCat",
             targets: ["MathCat"]
         ),
@@ -19,17 +19,11 @@ let package = Package(
                 .headerSearchPath("Include")
             ]
         ),
-        .executableTarget(
+        .target(
             name: "MathCat",
             dependencies: ["CMathCat"],
-            sources: ["Main.swift"],
-            cSettings: [
-                .headerSearchPath("../CMathCat/Include"),
-            ],
-            linkerSettings: [
-                .unsafeFlags(["-LSources/Lib"]),
-                .linkedLibrary("libmathcat_c")
-            ]
+            sources: ["."] // ⚠️ VERIFY: Is your Swift wrapper code directly in Sources/MathCat?
+                           // If in a subdirectory (e.g., Sources/MathCat/Wrapper), change to: ["Wrapper"]
         ),
     ]
 )

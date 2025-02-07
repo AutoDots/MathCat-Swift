@@ -4,7 +4,7 @@
 //
 //  Created by Your Name on Date.
 //
-
+import CMathCat
 import Foundation
 public enum MathCatError: Error {
     case genericError(String)
@@ -152,44 +152,3 @@ public class MathCat {
     }
 }
 
-
-//
-//  File.swift
-//  MathCat
-//
-//  Created by ahmed hassan  on 02/02/2025.
-//
-
-import Foundation
-import CMathCat
-
-
-func main() {
-    do {
-        // 1. Set the Rules Directory (adjust path if needed)
-        try MathCat.setRulesDir(rulesDirLocation: "./Rules")
-        print("Rules directory set successfully.")
-
-        // 3. Read from the file a.html, which contains MathML.
-        let mathmlInput = try String(contentsOfFile: "a.html", encoding: .utf8)
-//display the MathML read from the file
-        print("\nMathML Input:\n\(mathmlInput)")
-
-        // 4. Set MathML in MathCAT
-_ =         try MathCat.setMathML(mathmlString: mathmlInput)
-        print("MathML set in MathCAT.")
-
-        // 5. Get Braille Output
-        print("\n--- Example with UEB Braille ---")
-        try MathCat.setPreference(pref: "BrailleCode", value: "UEB")
-        print("Braille code set to UEB.")
-        let brailleOutputUEB = try MathCat.getBraille()
-        print("\nBraille Output (UEB):\n\(brailleOutputUEB)")
-        let speach = try MathCat.getSpokenText()
-        print(speach)
-    } catch {
-        print("Error: \(error)")
-    }
-
-}
-main()
