@@ -17,13 +17,16 @@ let package = Package(
             publicHeadersPath: "Include",
             cSettings: [
                 .headerSearchPath("Include")
+            ],
+            linkerSettings: [
+                .linkedLibrary("libmathcat_c"), // ⚠️ Replace "system-math-lib" with the actual library name (without lib prefix and extension)
+                .unsafeFlags(["-L/usr/local/lib"]) // Add /usr/local/lib to linker search paths
             ]
         ),
         .target(
             name: "MathCat",
             dependencies: ["CMathCat"],
-            sources: ["."] // ⚠️ VERIFY: Is your Swift wrapper code directly in Sources/MathCat?
-                           // If in a subdirectory (e.g., Sources/MathCat/Wrapper), change to: ["Wrapper"]
+            sources: ["MathCat.swift"] // ⚠️ VERIFY: Swift wrapper code location
         ),
     ]
 )
